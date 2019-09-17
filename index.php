@@ -5,8 +5,8 @@
     <title>Ticketing System</title>
 </head>
 <body>
-<a href="waiting_list.php">Waiting List</a> |
-<a href="add_user.php">New Client</a> |
-<a href="admin.php">Admin</a> |
+<?php
+require_once (__DIR__ . '/_html_header.php');
+?>
 </body>
 </html>

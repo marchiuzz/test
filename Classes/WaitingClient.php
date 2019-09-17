@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-include_once __DIR__.'/Model.php';
+include_once __DIR__ . '/Model.php';
 
 class WaitingClient extends Model
 {
@@ -15,7 +15,8 @@ class WaitingClient extends Model
     {
         parent::__construct();
         if ($id !== null) {
-            $this->fillObject($id);        }
+            $this->fillObject($id);
+        }
     }
 
     protected function fillObject(int $id): void
@@ -61,10 +62,47 @@ class WaitingClient extends Model
 
     public function save(): bool
     {
-        $sql = "INSERT INTO ".$this->table." SET name = :name, time_started = :timeStarted";
+        $sql = "INSERT INTO " . $this->table . " SET name = :name, time_started = :timeStarted";
         $stmt = $this->connection->prepare($sql);
         $stmt->bindValue(":name", $this->name);
         $stmt->bindValue(":timeStarted", $this->timeStarted);
+
+        try {
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+            return false;
+        }
+
+    }
+
+    public function GetAllWaitingClients($limit = "3", $orderBy = "ORDER BY `id` ASC"): array
+    {
+        $sql = "SELECT * FROM " . $this->table . " " . $orderBy . " LIMIT " . $limit;
+        $stmt = $this->connection->prepare($sql);
+        try {
+            if ($stmt->execute()) {
+                $results = $stmt->fetchAll();
+            } else {
+                $results = $stmt->fetchAll();
+            }
+        } catch (Exception $exception) {
+            echo $exception->getMessage();
+            return [];
+        }
+
+        return $results;
+    }
+
+    public function destroy(): bool
+    {
+        $sql = "DELETE FROM " . $this->table . " WHERE id = :id LIMIT 1";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue(":id", $this->id);
 
         try {
             if($stmt->execute()){
@@ -74,25 +112,12 @@ class WaitingClient extends Model
             }
         } catch (Exception $exception){
             echo $exception->getMessage();
+            return false;
         }
 
+
+
     }
-
-    public function GetAllWaitingClients($orderBy = "ORDER BY `id` ASC", $limit = "LIMIT 3") : array
-    {
-        $sql = "SELECT * FROM ".$this->table." ".$orderBy." ".$limit;
-        $db = new DB();
-        $stmt = $db->getConnection()->prepare($sql);
-        $stmt->execute();
-        $results = $stmt->fetchAll();
-
-        return $results;
-    }
-
-
-
-
-
 
 
 }

@@ -17,12 +17,9 @@ abstract class Model
      * @throws Exception
      */
     public function getById(int $id): array {
-        $sql = sprintf(
-            'SELECT * FROM %s WHERE id = %d',
-            $this->table,
-            $id
-        );
+        $sql = "SELECT * FROM ".$this->table." WHERE id = :id";
         $stmt = $this->connection->prepare($sql);
+        $stmt->bindValue(":id", $id);
         $stmt->execute();
         $result = $stmt->fetch();
         if (empty($result)) {

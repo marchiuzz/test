@@ -23,6 +23,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button']) && !em
     <title>New Client</title>
 </head>
 <body>
+<?php
+require_once (__DIR__ . '/_html_header.php');
+?>
+
 <form method="post" target="">
     <label for="name">Your name:</label>
     <input type="text" id="name" name="name" value="" placeholder="First Name" autocomplete="off"/>

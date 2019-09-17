@@ -13,6 +13,10 @@ $waitingClients = (new WaitingClient())->GetAllWaitingClients();
     <title>Waiting List</title>
 </head>
 <body>
+<?php
+require_once (__DIR__ . '/_html_header.php');
+?>
+
 <table>
     <tr>
         <th>Id</th>
