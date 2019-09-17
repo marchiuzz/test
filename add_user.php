@@ -9,29 +9,26 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button']) && !em
     $client->setTimeStarted(date("Y-m-d H:i:s"));
 
     if($client->save()){
-        echo "Success";
+        header("Location: waiting_list.php");
     } else {
         echo "Error";
     }
 }
 
 ?>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>New Client</title>
-</head>
-<body>
 <?php
 require_once (__DIR__ . '/_html_header.php');
 ?>
 
 <form method="post" target="">
-    <label for="name">Your name:</label>
-    <input type="text" id="name" name="name" value="" placeholder="First Name" autocomplete="off"/>
-    <input type="submit" id="submit_button" name="submit_button" value="Submit Form">
+    <div class="form-group">
+        <label for="name">Your name</label>
+        <input type="text" class="form-control" id="name" name="name" value="" placeholder="Your name?">
+    </div>
+    <button type="submit" class="btn btn-primary" id="submit_button" name="submit_button">Submit</button>
 </form>
+
+
 </body>
 </html>
 
