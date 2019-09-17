@@ -8,7 +8,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button']) && !em
     $client->setName($_POST['name']);
     $client->setTimeStarted(date("Y-m-d H:i:s"));
 
-
     if($client->save()){
         echo "Success";
     } else {
