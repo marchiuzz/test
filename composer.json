@@ -1,0 +1,16 @@
+{
+    "name": "marchiuzz/ticketing",
+    "description": "Ticketing system to see your number in que",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.2"
+    },
+    "authors": [
+        {
+            "name": "marchiuzz",
+            "email": "marchiuzz@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+}
