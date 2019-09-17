@@ -78,6 +78,19 @@ class WaitingClient extends Model
 
     }
 
+    public function GetAllWaitingClients($orderBy = "ORDER BY `id` ASC", $limit = "LIMIT 3") : array
+    {
+        $sql = "SELECT * FROM ".$this->table." ".$orderBy." ".$limit;
+        $db = new DB();
+        $stmt = $db->getConnection()->prepare($sql);
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+
+        return $results;
+    }
+
+
+
 
 
 
