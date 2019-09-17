@@ -3,14 +3,33 @@ declare(strict_types=1);
 
 include_once __DIR__ . '/Model.php';
 
+/**
+ * Class WaitingClient
+ */
 class WaitingClient extends Model
 {
+    /**
+     * @var string
+     */
     protected $table = "waiting_clients";
 
+    /**
+     * @var
+     */
     private $id;
+    /**
+     * @var
+     */
     private $name;
+    /**
+     * @var
+     */
     private $timeStarted;
 
+    /**
+     * WaitingClient constructor.
+     * @param int|null $id
+     */
     public function __construct(?int $id = null)
     {
         parent::__construct();
@@ -19,6 +38,10 @@ class WaitingClient extends Model
         }
     }
 
+    /**
+     * @param int $id
+     * @throws Exception
+     */
     protected function fillObject(int $id): void
     {
         $data = $this->getById($id);
@@ -28,38 +51,61 @@ class WaitingClient extends Model
     }
 
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @param int|null $id
+     * @return WaitingClient
+     */
     public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return WaitingClient
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getTimeStarted()
     {
         return $this->timeStarted;
     }
 
+    /**
+     * @param $timeStarted
+     */
     public function setTimeStarted($timeStarted): void
     {
         $this->timeStarted = $timeStarted;
     }
 
+    /**
+     * @return bool
+     */
     public function save(): bool
     {
         $sql = "INSERT INTO " . $this->table . " SET name = :name, time_started = :timeStarted";
@@ -80,6 +126,11 @@ class WaitingClient extends Model
 
     }
 
+    /**
+     * @param string $limit
+     * @param string $orderBy
+     * @return array
+     */
     public function GetAllWaitingClients($limit = "3", $orderBy = "ORDER BY `id` ASC"): array
     {
         $sql = "SELECT * FROM " . $this->table . " " . $orderBy . " LIMIT " . $limit;
@@ -98,6 +149,9 @@ class WaitingClient extends Model
         return $results;
     }
 
+    /**
+     * @return bool
+     */
     public function destroy(): bool
     {
         $sql = "DELETE FROM " . $this->table . " WHERE id = :id LIMIT 1";
@@ -114,9 +168,6 @@ class WaitingClient extends Model
             echo $exception->getMessage();
             return false;
         }
-
-
-
     }
 
 

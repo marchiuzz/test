@@ -1,15 +1,37 @@
 <?php
 declare(strict_types = 1);
 include __DIR__.'/DB.php';
+
+/**
+ * Class Model
+ */
 abstract class Model
 {
+    /**
+     * @var
+     */
     protected $table;
+    /**
+     * @var PDO
+     */
     protected $connection;
+
+    /**
+     * Model constructor.
+     */
     public function __construct()
     {
         $this->connection = (new DB())->getConnection();
     }
+
+    /**
+     * @param int $id
+     */
     abstract protected function fillObject(int $id): void;
+
+    /**
+     * @return bool
+     */
     abstract public function save(): bool;
     /**
      * @param int $id
