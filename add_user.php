@@ -11,6 +11,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button']) && !em
         $error = "Name field is empty";
     }
 
+    if(strlen($name) < 3){
+        $error = "Minimum 3 characters";
+    }
+
     if(!isset($error)){
         $client = new Visitor();
         $client->setName($name);
