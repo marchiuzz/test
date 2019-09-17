@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-require_once (__DIR__ . '/Classes/WaitingClient.php');
+require_once (__DIR__ . '/Classes/Visitor.php');
 
-$waitingClients = (new WaitingClient())->GetAllWaitingClients(1);
+$waitingVisitors = (new Visitor())->GetAllWaitingClients(1);
 
 if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['clientComplete'])){
     $clientId = (int)$_GET['clientComplete'];
-    $waitingClient = new WaitingClient($clientId);
+    $waitingClient = new Visitor($clientId);
     if($waitingClient->destroy()){
         header("Location: admin.php");
     } else {
@@ -30,13 +30,12 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['clientComplete'])){
     <tbody>
     <?php
 
-    foreach ($waitingClients as $waitingClient) {
-        //todo: Nekuriu kiekvienam foreach naujo objekto, kad nebutu papildomu mysql query, nes jau visa info turim $waitingClients
+    foreach ($waitingVisitors as $visitor) {
         ?>
         <tr>
-            <td scope="row"><?= $waitingClient['id'] ?></td>
-            <td><?= $waitingClient['name'] ?></td>
-            <td><a href="admin.php?clientComplete=<?= $waitingClient['id'] ?>" class="btn btn-success">Client finished</a></td>
+            <td scope="row"><?= $visitor['id'] ?></td>
+            <td><?= $visitor['name'] ?></td>
+            <td><a href="admin.php?clientComplete=<?= $visitor['id'] ?>" class="btn btn-success">Client finished</a></td>
         </tr>
         <?
     }

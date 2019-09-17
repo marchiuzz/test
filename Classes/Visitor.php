@@ -6,12 +6,12 @@ include_once __DIR__ . '/Model.php';
 /**
  * Class WaitingClient
  */
-class WaitingClient extends Model
+class Visitor extends Model
 {
     /**
      * @var string
      */
-    protected $table = "waiting_clients";
+    protected $table = "visitors";
 
     /**
      * @var
@@ -61,7 +61,7 @@ class WaitingClient extends Model
 
     /**
      * @param int|null $id
-     * @return WaitingClient
+     * @return Visitor
      */
     public function setId(?int $id): self
     {
@@ -79,7 +79,7 @@ class WaitingClient extends Model
 
     /**
      * @param string $name
-     * @return WaitingClient
+     * @return Visitor
      */
     public function setName(string $name): self
     {

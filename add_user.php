@@ -1,17 +1,19 @@
 <?php
 declare(strict_types=1);
 
-require_once (__DIR__ . '/Classes/WaitingClient.php');
+require_once (__DIR__ . '/Classes/Visitor.php');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button']) && !empty($_POST['submit_button'])){
 
-    if(empty($_POST['name'])){
+    $name = trim($_POST['name']);
+
+    if(empty($name)){
         $error = "Name field is empty";
     }
 
     if(!isset($error)){
-        $client = new WaitingClient();
-        $client->setName($_POST['name']);
+        $client = new Visitor();
+        $client->setName($name);
         $client->setTimeStarted(date("Y-m-d H:i:s"));
 
         if($client->save()){
@@ -22,9 +24,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_button']) && !em
     } else {
         echo $error;
     }
-
-
-
 
 }
 

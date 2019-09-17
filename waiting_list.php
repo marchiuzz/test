@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-require_once (__DIR__ . '/Classes/WaitingClient.php');
+require_once (__DIR__ . '/Classes/Visitor.php');
 
-$waitingClients = (new WaitingClient())->GetAllWaitingClients();
+$waitingVisitors = (new Visitor())->GetAllWaitingClients();
 ?>
 
 <?
@@ -21,13 +21,12 @@ require_once (__DIR__ . '/_html_header.php');
     <tbody>
     <?php
 
-    foreach ($waitingClients as $waitingClient) {
-        //todo: Nekuriu kiekvienam foreach naujo objekto, kad nebutu papildomu mysql query, nes jau visa info turim $waitingClients
+    foreach ($waitingVisitors as $visitor) {
         ?>
         <tr>
-            <td scope="row"><?= $waitingClient['id'] ?></td>
-            <td><?= $waitingClient['name'] ?></td>
-            <td><?= $waitingClient['time_started'] ?></td>
+            <td scope="row"><?= $visitor['id'] ?></td>
+            <td><?= $visitor['name'] ?></td>
+            <td><?= $visitor['time_started'] ?></td>
         </tr>
     <?
     }
